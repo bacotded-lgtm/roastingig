@@ -1,1 +1,111 @@
-/api/roast
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Instagram Roast</title>
+
+<style>
+body{
+font-family:Arial;
+background:#111;
+color:white;
+text-align:center;
+padding:40px;
+}
+
+.box{
+max-width:500px;
+margin:auto;
+background:#222;
+padding:30px;
+border-radius:20px;
+}
+
+input,textarea{
+width:90%;
+padding:12px;
+margin:10px;
+border-radius:10px;
+border:none;
+}
+
+button{
+background:#ff0055;
+color:white;
+border:0;
+padding:12px 30px;
+border-radius:10px;
+cursor:pointer;
+}
+
+#hasil{
+margin-top:20px;
+color:#ffd166;
+font-size:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>🔥 AI Instagram Roast</h1>
+
+<input id="username" placeholder="Username IG">
+
+<textarea id="bio" placeholder="Bio Instagram"></textarea>
+
+<br>
+
+<button onclick="roast()">
+ROAST SEKARANG
+</button>
+
+<div id="hasil"></div>
+
+</div>
+
+
+<script>
+
+async function roast(){
+
+let hasil=document.getElementById("hasil");
+
+hasil.innerHTML="🤖 AI sedang roasting...";
+
+
+let res=await fetch("/api/roast",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+username:
+document.getElementById("username").value,
+
+bio:
+document.getElementById("bio").value
+
+})
+
+});
+
+
+let data=await res.json();
+
+
+hasil.innerHTML=data.roast || data.error;
+
+}
+
+</script>
+
+
+</body>
+</html>
